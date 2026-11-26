@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/*
+ * 设计语言：探险笔记本。暖纸底 + 淡等高线纹理，墨色线条；海蓝用于主操作，土黄用于强调和标注，
+ * 青绿用于正确与植被。卡片 14px 圆角、控件 10px 圆角，全站统一。
+ */
+:root, [data-theme="paper"] {
+  --bg: #f1eadb;
+  --bg-2: #e8dfcb;
+  --panel: #fbf7ee;
+  --panel-solid: #fffcf5;
+  --panel-border: rgba(31, 42, 51, 0.13);
+  --raised: rgba(31, 42, 51, 0.045);
+  --ink: #1f2a33;
+  --muted: #6d6f72;
+  --accent: #136f99;
+  --accent-ink: #f6fbfd;
+  --accent-2: #c8841c;
+  --accent-3: #d4a017;
+  --good: #2f8a55;
+  --danger: #cc4130;
+  --canvas: #fcf8ef;
+  --canvas-line: rgba(19, 111, 153, 0.09);
+  --rail: #1f2a33;
+  --rail-ink: #f1eadb;
+  --metal: #9aa0a6;
+  --sea: #bfe0ee;
+  --sea-deep: #7fb9d4;
+  --land: #e7d9b4;
+  --grid: rgba(31, 42, 51, 0.05);
+  --shadow: 0 1px 0 rgba(31, 42, 51, 0.05), 0 18px 30px -26px rgba(31, 42, 51, 0.45);
+  --font-ui: "PingFang SC", -apple-system, BlinkMacSystemFont, "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-num: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+[data-theme="night"] {
+  --bg: #0f1619;
+  --bg-2: #0b1114;
+  --panel: #152024;
+  --panel-solid: #19262b;
+  --panel-border: rgba(230, 224, 208, 0.11);
+  --raised: rgba(230, 224, 208, 0.05);
+  --ink: #ebe5d6;
+  --muted: #929a9c;
+  --accent: #3fa6d4;
+  --accent-ink: #061820;
+  --accent-2: #e8a94a;
+  --accent-3: #f0c24a;
+  --good: #52c487;
+  --danger: #ff7a66;
+  --canvas: #132024;
+  --canvas-line: rgba(63, 166, 212, 0.08);
+  --rail: #2a383d;
+  --rail-ink: #ebe5d6;
+  --metal: #6f7a80;
+  --sea: #1d4558;
+  --sea-deep: #173a4a;
+  --land: #4b4a37;
+  --grid: rgba(230, 224, 208, 0.03);
+  --shadow: 0 18px 32px -24px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-panel: var(--panel);
+  --color-panel-solid: var(--panel-solid);
+  --color-panel-border: var(--panel-border);
+  --color-raised: var(--raised);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-good: var(--good);
+  --color-danger: var(--danger);
+  --font-ui: var(--font-ui);
+  --font-num: var(--font-num);
+}
+
+@theme {
+  --breakpoint-wide: 87.5rem;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+/* 等高线纸底纹 */
+.app-bg {
+  background-color: var(--bg);
+  background-image: url("/topo.svg");
+  background-size: 640px 640px;
+}
+
+@layer components {
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+  .num { font-family: var(--font-num); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .h-display { font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    height: 44px; padding: 0 18px; border-radius: 10px; font-size: 15px; font-weight: 700; white-space: nowrap;
+    background: var(--accent); color: var(--accent-ink);
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.14);
+    transition: transform .12s, filter .12s, opacity .12s, background .15s;
+  }
+  .btn:hover:not(:disabled) { filter: brightness(1.05); }
+  .btn:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
+  .btn:disabled { opacity: .38; cursor: not-allowed; }
+  .btn-ink { background: var(--ink); color: var(--bg); }
+  .btn-secondary { background: var(--panel-solid); color: var(--ink); box-shadow: none; border: 1px solid var(--panel-border); }
+  .btn-secondary:hover:not(:disabled) { filter: none; border-color: color-mix(in oklab, var(--ink) 35%, transparent); }
+  .btn-sm { height: 34px; padding: 0 12px; font-size: 13px; }
+
+  .seg { display: inline-flex; gap: 2px; padding: 3px; border-radius: 10px; background: var(--raised); border: 1px solid var(--panel-border); }
+  .seg > button { height: 28px; padding: 0 11px; border-radius: 7px; font-size: 13px; font-weight: 600; color: var(--muted); display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: all .15s; }
+  .seg > button:hover { color: var(--ink); }
+  .seg > button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+  .choice {
+    display: inline-flex; align-items: center; justify-content: center; min-width: 64px; height: 38px; padding: 0 14px;
+    border-radius: 10px; border: 1px solid var(--panel-border); background: var(--panel-solid); font-weight: 600; font-size: 14px; color: var(--ink); transition: all .15s;
+  }
+  .choice:hover { border-color: color-mix(in oklab, var(--ink) 40%, transparent); }
+  .choice[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+
+  .label { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .rule { border-top: 1px dashed var(--panel-border); }
+}
+
+:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+
+@keyframes flow { to { stroke-dashoffset: -24; } }
+.flow { stroke-dasharray: 4 8; animation: flow linear infinite; }
+@media (prefers-reduced-motion: reduce) { .flow { animation: none; } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+@media (prefers-reduced-motion: reduce) { .animate-\[shake_\.3s\] { animation: none; } }
