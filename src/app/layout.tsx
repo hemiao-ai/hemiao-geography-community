@@ -5,6 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: SITE_NAME,
+  icons: { icon: "/brand/geography-folded-map.webp" },
   description: "用互动地球仪和等高线沙盘动手学地理，进度保存在此浏览器。",
 };
 

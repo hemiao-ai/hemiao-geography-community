@@ -2,12 +2,12 @@
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { createContext, useContext, useRef, useState, type ReactNode } from "react";
-import { ArrowLeft, Check, CheckCircle, Info, Lightbulb, SpeakerHigh, SpeakerSlash, WarningCircle } from "@/components/ui/Icon";
+import { ArrowLeft, Check, CheckCircle, Info, Lightbulb, SpeakerHigh, SpeakerSlash, Sparkle, WarningCircle } from "@/components/ui/Icon";
 import { sfx, useSfxEnabled } from "@/lib/sfx";
-import { OfficialSiteLink, SiteCredits } from "@/components/shell/SiteCredits";
+import { GitHubLink, OfficialSiteLink, SiteCredits } from "@/components/shell/SiteCredits";
 
 export const STEPS = ["情境", "猜想", "探究", "归纳"] as const;
-export interface FrameMeta { backHref: string; crumb: string; title: string; mode: "local" | "server" }
+export interface FrameMeta { backHref: string; crumb: string; title: string; pointKey?: string; mode: "local" | "server" }
 export const FrameContext = createContext<FrameMeta>({ backHref: "/home", crumb: "", title: "", mode: "local" });
 
 export function LabFrame({ step, children }: { step: number; children: ReactNode }) {
@@ -22,7 +22,7 @@ export function LabFrame({ step, children }: { step: number; children: ReactNode
       if (button && !button.hasAttribute("data-lesson-silent")) sfx.tap();
     }}>
     <header className="sticky top-0 z-30 border-b border-panel-border bg-[color-mix(in_oklab,var(--bg)_90%,transparent)] backdrop-blur-md">
-      <div className="mx-auto flex h-[68px] max-w-[1440px] items-center gap-2 px-4 sm:gap-4 sm:px-6">
+      <div className="mx-auto flex h-[68px] max-w-[1440px] items-center gap-2 px-3 sm:gap-3 sm:px-6">
         <Link href={meta.backHref} aria-label="返回课程" className="btn btn-secondary btn-sm w-9 px-0"><ArrowLeft size={17} /></Link>
         <div className="min-w-0 max-lg:flex-1"><div className="truncate text-xs text-muted">{meta.crumb}</div><div className="h-display truncate text-[18px]">{meta.title}</div></div>
         <ol className="ml-auto hidden items-center gap-1 lg:flex">
@@ -42,6 +42,11 @@ export function LabFrame({ step, children }: { step: number; children: ReactNode
           {soundOn ? <SpeakerHigh size={17} aria-hidden="true" /> : <SpeakerSlash size={17} aria-hidden="true" />}
         </button>
         <span className="hidden rounded-lg border border-dashed border-panel-border px-2.5 py-1 text-xs font-bold text-muted sm:block">{meta.mode === "server" ? "账号记录" : "本机记录"}</span>
+        {meta.pointKey && <Link href={`/ai?point=${encodeURIComponent(meta.pointKey)}`} target="_blank" rel="noreferrer"
+          aria-label="问 AI（在新标签页打开）" title="问 AI" className="btn btn-secondary btn-sm shrink-0 max-sm:w-[34px] max-sm:px-0">
+          <Sparkle size={16} aria-hidden="true" /><span className="hidden sm:inline">问 AI</span>
+        </Link>}
+        <GitHubLink compact />
         <OfficialSiteLink className="shrink-0 max-sm:px-2" />
       </div>
     </header>

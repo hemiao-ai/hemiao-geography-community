@@ -4,3 +4,4 @@ export const TIANDITU_CREDIT = process.env.NEXT_PUBLIC_TIANDITU_CREDIT?.trim() ?
 export const hasTianditu = !!(TIANDITU_KEY && TIANDITU_CREDIT);
 
 export const OFFICIAL_SITE_URL = "https://geography.hemiaoji.com/home";
+export const COMMUNITY_REPO_URL = "https://github.com/hemiao-ai/hemiao-geography-community";

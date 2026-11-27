@@ -39,7 +39,7 @@ export function Workbench({ bookId, pointId, type, title, crumb, backHref }: {
     }
   };
 
-  return <FrameContext.Provider value={{ backHref, title, crumb, mode: "local" }}>
+  return <FrameContext.Provider value={{ backHref, title, crumb, pointKey: key, mode: "local" }}>
     {!run ? <LabFrame step={0}><div className="m-auto py-8 text-center">
       <h1 className="h-display text-3xl">{title}</h1>
       <p className="mt-3 text-sm text-muted">完成情境、猜想、探究和归纳四个环节。</p>

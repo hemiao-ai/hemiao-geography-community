@@ -7,6 +7,6 @@
 - 同步的原创互动课见 `src/components/lesson/` 和 `src/lib/lessons*.ts`。教材课程的原创封面插画见 `public/book-covers/`。
 - 经纬度定位练习的题目文字见 `src/lib/arena/latlon.ts`。
 
-禾苗名称、标识和宠物形象的品牌权利单独保留。教材参考页链接到资源提供方。原书、原书配图、第三方地图瓦片和真题不属于社区版授权范围。气候观测值按来源引用，归属见第三方声明。
+禾苗名称、标识和宠物形象的品牌权利单独保留。随社区版提供的 Logo 位于 `public/brand/`，用于标识禾苗地理社区版。教材参考页链接到资源提供方。原书、原书配图、第三方地图瓦片和真题不属于社区版授权范围。气候观测值按来源引用，归属见第三方声明。
 
 音效来自 Kenney，按原有 [CC0](https://creativecommons.org/publicdomain/zero/1.0/) 使用，来源和许可见 [第三方声明](THIRD_PARTY_NOTICES.md)。
